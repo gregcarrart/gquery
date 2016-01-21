@@ -35,7 +35,7 @@ Get CSS Property:
 ```js
 $(selector).css('background-color');
 
-(returns 'red')
+// returns 'red'
 ```
 
 #### $.on(eventType, callback):
@@ -71,7 +71,7 @@ Get Attribute's Value
 ```js
 $(selector).attr('data-url');
 
-(returns 'www.bomb.com')
+// returns 'www.bomb.com'
 ```
 
 #### $.hide():
