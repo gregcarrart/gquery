@@ -6,7 +6,7 @@ A light weight solution mimicking jQuery selectors and a few methods.
 
 #### $(selectors):
 ```js
-$('.class') or $('#id')
+$('.class').selector or $('#id').selector
 ```
 
 #### $.each(selector, callback):
@@ -16,13 +16,26 @@ $.each($('.class'), function(index, selector) {
 });
 ```
 
-#### $.css({Object}):
+#### $.css(property, style):
 
+Single Property:
 ```js
-$('#id').css({
-   'background-image': 'url(path/to/image.jpg)',
-   'color': '#000'
+$(selector).css('background-color', 'red');
+```
+
+Multiple Properties:
+```js
+$(selector).css({
+    'background-color': 'red',
+    'margin-left': '100px'
 });
+```
+
+Get CSS Property:
+```js
+$(selector).css('background-color');
+
+(returns 'red')
 ```
 
 #### $.on(eventType, callback):
@@ -30,6 +43,45 @@ $('#id').css({
 $(selector).on('click', function() {
    //your code here
 });
+```
+
+#### $.html(html):
+```js
+$(selector).html('<h1>Yo Dawg this is ghetto</h1>');
+```
+
+#### $.addClass(classes):
+```js
+$(selector).addClass('ghetto');
+```
+
+#### $.removeClass(classes):
+```js
+$(selector).removeClass('ghetto');
+```
+
+#### $.attr(attr, val):
+
+Add Attribute and Value
+```js
+$(selector).attr('data-url', 'www.bomb.com');
+```
+
+Get Attribute's Value
+```js
+$(selector).attr('data-url');
+
+(returns 'www.bomb.com')
+```
+
+#### $.hide():
+```js
+$(selector).hide();
+```
+
+#### $.show():
+```js
+$(selector).show();
 ```
 
 
