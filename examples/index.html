@@ -12,6 +12,12 @@
  		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
  		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
  		<link rel="stylesheet" type="text/css" href=" ">
+
+        <style>
+            .bruh {
+                font-size: 1.5em;
+            }
+        </style>
  	</head>
  	<body>
  		<div class="container">
@@ -22,11 +28,29 @@
                 <li>List Item</li>
                 <li>List Item</li>
             </ul>
+
+            <div id="hidden">hue hue huehue dis hidden</div>
+
+            <button>Click dis</button>
         </div>
  	<script type="text/javascript" src="../src/gquery.js"></script>
 
     <script>
-        $('.container').css('margin-left', '100px');
+        $('.container h1').html('The Ghetto Title');
+
+        $('li').css({
+            'margin': '10px',
+            'background-color': '#cccccc'
+        });
+
+        $('#hidden').hide();
+
+        $('button').on('click', function() {
+            alert('lel you clicked');
+        });
+
+        $('button').addClass('bruh');
+
     </script>
  	</body>
  </html>
