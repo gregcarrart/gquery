@@ -100,9 +100,6 @@
                 }
             }
         },
-        on: function (eventType, callback) {
-            this.selector.addEventListener(eventType, callback, false);
-        },
         map: function (callback) {
             var results = [], i = 0;
             for ( ; i < this.length; i++) {
@@ -117,6 +114,15 @@
         forEach: function (callback) {
             this.map(callback);
             return this;
+        },
+        on: function (eventType, callback) {
+            if (this.selector.length > 1) {
+                for (var i = 0; i < this.selector.length; i++) {
+                    this.selector[i].addEventListener(eventType, callback, false);
+                }
+            } else {
+                this.selector.addEventListener(eventType, callback, false);
+            }
         },
         text: function (text) {
             if (typeof text !== "undefined") {
@@ -179,10 +185,23 @@
             }
         },
         hide: function() {
-            this.selector.style['display'] = 'none';
+            if (this.selector.length > 1) {
+                for (var i = 0; i < this.selector.length; i++) {
+                    this.selector[i].style['display'] = 'none';
+                }
+            } else {
+                this.selector.style['display'] = 'none';
+            }
+
         },
         show: function() {
-            this.selector.style['display'] = 'block';
+            if (this.selector.length > 1) {
+                for (var i = 0; i < this.selector.length; i++) {
+                    this.selector[i].style['display'] = 'block';
+                }
+            } else {
+                this.selector.style['display'] = 'block';
+            }
         }
     };
 
