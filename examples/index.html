@@ -45,9 +45,7 @@
             'background-color': '#cccccc'
         });
 
-        $('li').on('click', function() {
-            alert('yo');
-        });
+        $('li').on('click', alertYo);
 
         $('h1, #another-one').on('click', function() {
             console.log('yo dawg');
@@ -57,7 +55,12 @@
 
         $('button').on('click', function() {
             alert('lel you clicked');
+            $('li').off('click', alertYo);
         });
+
+        function alertYo() {
+            alert('yo');
+        }
 
         $('button').addClass('bruh');
 

@@ -124,6 +124,15 @@
                 this.selector.addEventListener(eventType, callback, false);
             }
         },
+        off: function (eventType, callback){
+            if (this.selector.length > 1) {
+                for (var i = 0; i < this.selector.length; i++) {
+                    this.selector[i].removeEventListener(eventType, callback, false);
+                }
+            } else {
+                this.selector.removeEventListener(eventType, callback, false);
+            }
+        },
         text: function (text) {
             if (typeof text !== "undefined") {
                 return this.forEach(function () {
