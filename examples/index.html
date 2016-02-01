@@ -64,25 +64,26 @@
 
         $('button').addClass('bruh');
 
-        $.ajax({
-            url: 'http://jsonip.com',
-            method: 'get',
-            json: true
-        }).done(function(data) {
-            $('#another-one').html(data.ip);
-        });
+        // $.ajax({
+        //     url: 'http://jsonip.com',
+        //     method: 'get',
+        //     json: true
+        // }).done(function(data) {
+        //     $('#another-one').html(data.ip);
+        // });
 
         $.ajax({
-            url: 'http://jsonplaceholder.typicode.com/posts',
+            url: 'http://games.espn.go.com/tournament-challenge-bracket/2015/en/format/json/whoPickedWhom?display=true',
             method: 'get',
-            json: true,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-type': 'application/jsonp'
+            dataType: 'jsonp',
+            success: function(data) {
+                console.log(data.wpw_round_1);
             }
-        }).done(function(data) {
-            console.log(data);
         });
+
+        // function jsonpCallback(response) {
+        //     console.log(response);
+        // }
 
     </script>
  	</body>

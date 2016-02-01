@@ -17,6 +17,7 @@
         options.url = options.url || '';
         options.method = options.method || 'get';
         options.data = options.data || {};
+        options.success = options.success || function(){};
 
         var getParams = function(data, url) {
             var arr = [], str;
@@ -35,37 +36,52 @@
             process: function(options) {
                 var self = this;
                 this.xhr = null;
-                if(window.ActiveXObject) { this.xhr = new ActiveXObject('Microsoft.XMLHTTP'); }
-                else if(window.XMLHttpRequest) { this.xhr = new XMLHttpRequest(); }
-                if(this.xhr) {
-                    this.xhr.onreadystatechange = function() {
-                        if(self.xhr.readyState == 4 && self.xhr.status == 200) {
-                            var result = self.xhr.responseText;
-                            if(options.json === true && typeof JSON != 'undefined') {
-                                result = JSON.parse(result);
-                            }
-                            self.doneCallback && self.doneCallback.apply(self.host, [result, self.xhr]);
-                        } else if(self.xhr.readyState == 4) {
-                            self.failCallback && self.failCallback.apply(self.host, [self.xhr]);
-                        }
-                        self.alwaysCallback && self.alwaysCallback.apply(self.host, [self.xhr]);
+
+                if (options.dataType === 'jsonp') {
+                    var s = document.createElement('script');
+                    s.type = 'text/javascript';
+                    s.src = options.url + ((options.url.indexOf("?") !== -1) ? "&" : "?") + "callback=jsonpCallback";
+                    var h = document.getElementsByTagName('script')[0];
+                    h.parentNode.insertBefore(s, h);
+
+                    window['jsonpCallback'] = function(data) {
+                        options.success(data);
                     }
-                }
-                if(options.method == 'get') {
-                    this.xhr.open("GET", options.url + getParams(options.data, options.url), true);
+
                 } else {
-                    this.xhr.open(options.method, options.url, true);
-                    this.setHeaders({
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Content-type': 'application/x-www-form-urlencoded'
-                    });
+                    if(window.ActiveXObject) { this.xhr = new ActiveXObject('Microsoft.XMLHTTP'); }
+                    else if(window.XMLHttpRequest) { this.xhr = new XMLHttpRequest(); }
+                    if(this.xhr) {
+                        this.xhr.onreadystatechange = function() {
+                            if(self.xhr.readyState == 4 && self.xhr.status == 200) {
+                                var result = self.xhr.responseText;
+                                if(options.json === true && typeof JSON != 'undefined') {
+                                    result = JSON.parse(result);
+                                }
+                                self.doneCallback && self.doneCallback.apply(self.host, [result, self.xhr]);
+                            } else if(self.xhr.readyState == 4) {
+                                self.failCallback && self.failCallback.apply(self.host, [self.xhr]);
+                            }
+                            self.alwaysCallback && self.alwaysCallback.apply(self.host, [self.xhr]);
+                        }
+                    }
+                    if(options.method == 'get') {
+                        this.xhr.open("GET", options.url + getParams(options.data, options.url), true);
+                    } else {
+                        this.xhr.open(options.method, options.url, true);
+                        this.setHeaders({
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-type': 'application/x-www-form-urlencoded'
+                        });
+                    }
+                    if(options.headers && typeof options.headers == 'object') {
+                        this.setHeaders(options.headers);
+                    }
+                    setTimeout(function() {
+                        options.method == 'get' ? self.xhr.send() : self.xhr.send(getParams(options.data));
+                    }, 20);
                 }
-                if(options.headers && typeof options.headers == 'object') {
-                    this.setHeaders(options.headers);
-                }
-                setTimeout(function() {
-                    options.method == 'get' ? self.xhr.send() : self.xhr.send(getParams(options.data));
-                }, 20);
+
                 return this;
             },
             done: function(callback) {
@@ -86,7 +102,9 @@
                 }
             }
         }
+
         return api.process(options);
+
     };
 
     gQuery.fn = gQuery.prototype = {
