@@ -64,6 +64,26 @@
 
         $('button').addClass('bruh');
 
+        $.ajax({
+            url: 'http://jsonip.com',
+            method: 'get',
+            json: true
+        }).done(function(data) {
+            $('#another-one').html(data.ip);
+        });
+
+        $.ajax({
+            url: 'http://jsonplaceholder.typicode.com/posts',
+            method: 'get',
+            json: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-type': 'application/jsonp'
+            }
+        }).done(function(data) {
+            console.log(data);
+        });
+
     </script>
  	</body>
  </html>
