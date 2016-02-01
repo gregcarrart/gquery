@@ -37,7 +37,7 @@
                 var self = this;
                 this.xhr = null;
 
-                if (options.dataType === 'jsonp' && method.toLowerCase() === 'get') {
+                if (options.dataType === 'jsonp' && options.method.toLowerCase() === 'get') {
                     var s = document.createElement('script');
                     s.type = 'text/javascript';
                     s.src = options.url + ((options.url.indexOf("?") !== -1) ? "&" : "?") + "callback=jsonpCallback";
