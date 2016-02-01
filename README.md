@@ -16,6 +16,20 @@ $.each($('.class'), function(index, selector) {
 });
 ```
 
+#### $.ajax({options}):
+```js
+$.ajax({
+    url: 'http://some-url.com/api/v1/feed',
+    method: 'get',
+    dataType: 'jsonp',
+    success: function(data) {
+        console.log(data);
+
+        //returns json data
+    }
+});
+```
+
 #### $.css(property, style):
 
 Single Property:
