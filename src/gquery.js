@@ -48,6 +48,8 @@
                         options.success(data);
                     }
 
+                    h.parentNode.removeChild(s);
+
                 } else {
                     if(window.ActiveXObject) { this.xhr = new ActiveXObject('Microsoft.XMLHTTP'); }
                     else if(window.XMLHttpRequest) { this.xhr = new XMLHttpRequest(); }
