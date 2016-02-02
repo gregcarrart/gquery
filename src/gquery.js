@@ -229,7 +229,7 @@
             }
         },
         text: function (text) {
-            if (typeof text !== "undefined") {
+            if (typeof text !== 'undefined') {
                 return this.forEach(function () {
                     this.selector.innerText = text;
                 });
@@ -240,7 +240,7 @@
             }
         },
         html: function (html) {
-            if (typeof html !== "undefined") {
+            if (typeof html !== 'undefined') {
                 this.forEach(function () {
                     this.selector.innerHTML = html;
                 });
@@ -249,6 +249,24 @@
                 return this.mapOne(function () {
                     return this.selector.innerHTML;
                 });
+            }
+        },
+        append: function(element) {
+            if (typeof element !== 'undefined') {
+                if (typeof element === 'string') {
+                    this.selector.insertAdjacentHTML('beforeend', element);
+                } else if (element.nodeType === 1) {
+                    this.selector.appendChild(element);
+                }
+            }
+        },
+        prepend: function(element) {
+            if (typeof element !== 'undefined') {
+                if (typeof element === 'string') {
+                    this.selector.insertAdjacentHTML('afterbegin', element);
+                } else if (element.nodeType === 1) {
+                    this.selector.insertBefore(element, this.selector.childNodes[0]);
+                }
             }
         },
         addClass: function (classes) {

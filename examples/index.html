@@ -34,6 +34,10 @@
             <div id="another-one">major key</div>
 
             <button>Click dis</button>
+
+            <div id="data-list">
+
+            </div>
         </div>
  	<script type="text/javascript" src="../src/gquery.js"></script>
 
@@ -64,26 +68,22 @@
 
         $('button').addClass('bruh');
 
-        // $.ajax({
-        //     url: 'http://jsonip.com',
-        //     method: 'get',
-        //     json: true
-        // }).done(function(data) {
-        //     $('#another-one').html(data.ip);
-        // });
-
         $.ajax({
-            url: 'http://games.espn.go.com/tournament-challenge-bracket/2015/en/format/json/whoPickedWhom?display=true',
+            url: 'http://puppygifs.tumblr.com/api/read/json',
             method: 'get',
             dataType: 'jsonp',
             success: function(data) {
-                console.log(data.wpw_round_1);
+                handleData(data);
             }
         });
 
-        // function jsonpCallback(response) {
-        //     console.log(response);
-        // }
+        function handleData(data){
+            $.each(data.posts, function(i, dataObject) {
+                if (i < 21 && dataObject['photo-url-500']) {
+                    $('#data-list').append('<li><img src="' + dataObject['photo-url-500'] + '" /></li>');
+                }
+            });
+        }
 
     </script>
  	</body>
